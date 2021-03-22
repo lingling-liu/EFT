@@ -20,3 +20,6 @@ rvs <- circular::circular(rvs)
 quantiles <- circular::quantile.circular(rvs,probs = seq(0, 1, 0.3333))
 quantiles <- circular::deg(quantiles)
 quantiles <- quantiles /360 * 365
+
+# test
+print(rvs)
