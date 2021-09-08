@@ -1,6 +1,7 @@
  var L8_EVI = ee.ImageCollection("LANDSAT/LC8_L1T_8DAY_EVI"),
     L7_EVI = ee.ImageCollection("LANDSAT/LE7_L1T_8DAY_EVI"),
     L5_EVI = ee.ImageCollection("LANDSAT/LT5_L1T_8DAY_EVI")
+var roi = ee.FeatureCollection("users/lliu6/NicoyaPeninsula_boundaries_lat_lon");
  
 // Script to build EFTs on a global or local scale 
 // Import a shape for local EFTs 
