@@ -46,7 +46,9 @@ print(bins)
 plt.figure(figsize=(15,4)) #change your figure size as per your desire here
 plt.subplot(1, 3, 1)  # 1 line, 2 rows, index nr 1 (first position in the subplot)
 plt.hist(lidar_dem_MODIS.flatten(), bins = bins,density = True)
-plt.title('MODIS_MMax_2001_2017')
+plt.title('MODIS_MMax_2001_2017',size=16)
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=14)
 # plt.xlim([0, 1])
 # plt.xticks(np.arange(0,1,0.2))
 # plt.xlabel('x-axis')
@@ -54,12 +56,16 @@ plt.title('MODIS_MMax_2001_2017')
 
 plt.subplot(1, 3, 2)  # 1 line, 2 rows, index nr 2 (second position in the subplot)
 plt.hist(lidar_dem_Landsat7.flatten(), bins = bins,density = True)
-plt.title('Landsat7_MMax_2001_2017')
+plt.title('Landsat7_MMax_2001_2017',size=16)
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=14)
 
 
 plt.subplot(1, 3, 3)  # 1 line, 2 rows, index nr 2 (second position in the subplot)
 plt.hist(lidar_dem_Landsat7_NP.flatten(), bins = bins,density = True)
-plt.title('Landsat7_MMax_2001_2017_NP')
+plt.title('Landsat7_MMax_2001_2017_NP',size=16)
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=14)
 
 # space between the plots
 plt.tight_layout(3)
