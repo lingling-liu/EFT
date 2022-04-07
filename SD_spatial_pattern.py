@@ -87,5 +87,5 @@ plt.title('Landsat7_SD_2001_2017_NP')
 plt.axis('off')
 
 
-#plt.show()
-plt.savefig("SD_spatial_patterns.png")
+plt.show()
+#plt.savefig("SD_spatial_patterns.png")

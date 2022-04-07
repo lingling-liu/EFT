@@ -133,5 +133,5 @@ plt.title('MODIS_MMax_4classes')
 plt.axis('off')
 
 
-#plt.show()
-plt.savefig("MODIS_MMax_spatial_patterns_different_classes.png")
+plt.show()
+#plt.savefig("MODIS_MMax_spatial_patterns_different_classes.png")

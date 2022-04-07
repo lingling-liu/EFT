@@ -194,5 +194,5 @@ im = pre_lidar_chm_class_ma.plot.imshow(cmap=cmap,norm=norm)
 plt.title('Landsat7_mean_6classes')
 plt.axis('off')
 
-#plt.show()
-plt.savefig("Landsat7_mean_spatial_patterns_different_classes.png")
+plt.show()
+#plt.savefig("Landsat7_mean_spatial_patterns_different_classes.png")

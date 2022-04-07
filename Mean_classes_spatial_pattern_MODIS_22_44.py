@@ -108,5 +108,5 @@ plt.title('MODIS_mean_4classes')
 plt.axis('off')
 
 
-#plt.show()
-plt.savefig(r"C:\EFT\MODIS_mean_spatial_patterns_22_44.png")
+plt.show()
+#plt.savefig(r"C:\EFT\MODIS_mean_spatial_patterns_22_44.png")
