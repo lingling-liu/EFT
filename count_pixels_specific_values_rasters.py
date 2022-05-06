@@ -22,8 +22,11 @@ import numpy
 from pathlib import Path
 # assign directory
 #directory = "D:\My Drive\EFT\EFD\percentiles\EFD_test"
-#directory = "C:\EFT\EFD\percentiles\EFD_gee\EFD_test"
+#directory = "D:\My Drive\EFT\EFD\percentiles"
 directory = "C:\EFT\EFD\percentiles\EFD_gee"
+
+path1 = "C:/EFT/EFD/EFD_gee_percentages_pixels_above_75_quantiles.txt"
+f_txt = open(path1,'w')
  
 # iterate over files in
 # that directory
@@ -40,8 +43,7 @@ for filename in os.listdir(directory):
         #https://numpy.org/doc/stable/reference/generated/numpy.squeeze.html
         pre_lidar_chm = np.squeeze(pre_lidar_chm1, axis=0)
         print(type(pre_lidar_chm))
-        #mask out fill value
-        pre_lidar_chm_class_ma = pre_lidar_chm.where(pre_lidar_chm !=0)
+        pre_lidar_chm_class_ma = pre_lidar_chm.where(pre_lidar_chm !=255)
         print('CHM min value:', np.nanmin(pre_lidar_chm_class_ma))
         print('CHM max value:', np.nanmax(pre_lidar_chm_class_ma))
         #https://carpentries-incubator.github.io/geospatial-python/05-raster-structure/
@@ -61,6 +63,13 @@ for filename in os.listdir(directory):
         print(type(EFD_classified))
         print(EFD_classified.shape)
         print(pre_lidar_chm1.shape)
+
+        count0 = (EFD_classified ==0).sum()
+        count1 = (EFD_classified ==1).sum()
+        print(count0, count1)
+        percentages = count0/(count0+count1)
+        print(percentages.values)
+
         
         EFD_classified.rio.write_crs(pre_lidar_chm1.rio.crs, inplace=True)
         EFD_classified.rio.set_nodata(255, inplace=True)
@@ -70,11 +79,14 @@ for filename in os.listdir(directory):
         filename = Path(f).stem
         print(filename)
         #concatenate strings
-        print("C:/EFT/EFD/percentiles/output/"+ filename+"_reclass.tif")
+        #f_txt.write("C:/EFT/EFD/percentiles/output/"+ filename+"_reclass.tif")
+        f_txt.write("C:/EFT/EFD/percentiles/EFD_gee/output/"+ filename+"_reclass.tif")   
+        f_txt.write('\n')
+        f_txt.write(str(percentages.values))
+        f_txt.write('\n')
+        #print("C:/EFT/EFD/percentiles/output/"+ filename+"_reclass.tif")
         #EFD_classified.rio.to_raster("C:/EFT/EFD/percentiles/output/"+ filename+"_reclass.tif",dtype=np.int32)
-        EFD_classified.rio.to_raster("C:/EFT/EFD/percentiles/EFD_gee/output/"+ filename+"_reclass.tif",dtype=np.int32)
-        
-
+f_txt.close()
         
 
 

@@ -73,7 +73,7 @@ fig = go.Figure(data=[go.Sankey(
     )
 )])
 
-fig.update_layout(title_text="Sankey Diagram", font_size=12,width=800, height=800)
+fig.update_layout(title_text="Sankey Diagram", font_size=16,width=800, height=800)
 fig.show()
 #pio.write_image(fig, 'C:/EFT/Fig/EFD_b4_w3_Sankey_Diagram_from_National_Local.png')
 #fig.write_image("C:/EFT/Fig/EFD_b4_w3_Sankey_Diagram_from_National_Local.svg")
