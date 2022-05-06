@@ -127,22 +127,3 @@ col1_y51 <- b4_w7[index,1]
 
 pixels <- c(NROW(col1_x),NROW(col1_y11),NROW(col1_y21),NROW(col1_y31),NROW(col1_y41),NROW(col1_y51))
 print(pixels)
-
-# X1 <-as.matrix(x)
-# Y1 <-as.matrix(y1)
-# Y2 <-as.matrix(y2)
-# Y3 <-as.matrix(y3)
-# Y4 <-as.matrix(y4)
-# Y5 <-as.matrix(y5)
-# 
-# my_data <- cbind(X1,Y1,Y2,Y3,Y4,Y5)
-# Y <- cbind(X1,Y1,Y2,Y3,Y4,Y5)
-# 
-# # #https://rstudio-pubs-static.s3.amazonaws.com/240657_5157ff98e8204c358b2118fa69162e18.html
-# cor_1 <- round(cor(my_data), 2)
-# cor_2 <- rcorr(as.matrix(my_data))
-# 
-# result1_r = cor_1
-# result1_p = cor_2$P
-# res <- rbind(result1_r,result1_p)
-# write.csv(res,"C:\\EFT\\EFD\\Landsat_EFDs_correlations.csv")
