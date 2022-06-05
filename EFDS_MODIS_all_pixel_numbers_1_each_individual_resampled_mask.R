@@ -293,4 +293,3 @@ col1_y51 <- b4_w7[index,1]
 
 pixels_agreement <- c(NROW(col1_x),NROW(col1_y11),NROW(col1_y21),NROW(col1_y31),NROW(col1_y41),NROW(col1_y51))
 print(pixels_agreement)
-

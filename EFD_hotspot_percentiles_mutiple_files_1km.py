@@ -23,8 +23,10 @@ from pathlib import Path
 # assign directory
 #directory = "D:\My Drive\EFT\EFD\percentiles\EFD_test"
 #directory = "C:\EFT\EFD\percentiles\EFD_gee\EFD_test"
-directory = "C:/EFT/EFD/percentiles/EFD_gee/nodata/1km/"
- 
+#directory = "C:/EFT/EFD/percentiles/EFD_gee/nodata/1km/"
+
+
+directory = "C:/EFT/EFD/percentiles/EFD_gee/NP/nodata/1km/"
 # iterate over files in
 # that directory
 for filename in os.listdir(directory):
@@ -70,9 +72,9 @@ for filename in os.listdir(directory):
         filename = Path(f).stem
         print(filename)
         #concatenate strings
-        print("C:/EFT/EFD/percentiles/output/"+ filename+"_reclass.tif")
+        #print("C:/EFT/EFD/percentiles/output/"+ filename+"_reclass.tif")
         #EFD_classified.rio.to_raster("C:/EFT/EFD/percentiles/output/"+ filename+"_reclass.tif",dtype=np.int32)
-        EFD_classified.rio.to_raster("C:/EFT/EFD/percentiles/EFD_gee/nodata/1km/output/"+ filename+"_reclass.tif",dtype=np.int32)
+        EFD_classified.rio.to_raster("C:/EFT/EFD/percentiles/EFD_gee/NP/nodata/1km/output/"+ filename+"_reclass.tif",dtype=np.int32)
         
 
         
