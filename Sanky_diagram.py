@@ -6,10 +6,11 @@ import plotly.io as pio
 # read in the data to a dataframe
 #data_path = 'C:/Costa_Rica/EFT/Landsat7/EFT_correspondence_table_NP_based_national_scale_percentages.xlsx'
 #data_path = "C:/EFT/EFD/EFD_b4_w3_2001_2017_correspondence_table_NP_based_national_scale_percentages.xlsx"
-data_path = "C:/EFT/EFD/EFD_b4_w3_2001_2017_correspondence_table_NP_based_national_scale_percentages_all.xlsx"
+#data_path = "C:/EFT/EFD/EFD_b4_w3_2001_2017_correspondence_table_NP_based_national_scale_percentages_all.xlsx"
+data_path = "C:\EFT\EFD\EFD_b4_w7_correspondence_table_NP_based_national_scale_percentages_6classes.xlsx"
 df = pandas.read_excel(
     data_path,
-    sheet_name='EFD_b4_w3_2001_2017_corresponde',
+    sheet_name='EFD_b4_w7_correspondence_table_',
     index_col=0  # use the first column as the row index
 )
 

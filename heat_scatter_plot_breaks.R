@@ -127,11 +127,11 @@ for(MODIS in c('MODIS_b2_w3', 'MODIS_b2_w5','MODIS_b2_w7','Landsat_b2_w3', 'Land
 #              nrow = 6)
 #dev.off() # Close the file
 
-p3 <- grid.arrange(myplots[[1]],myplots[[2]],myplots[[3]],myplots[[4]],myplots[[5]],myplots[[6]],
-             myplots[[7]],myplots[[8]],myplots[[9]],myplots[[10]],myplots[[11]],myplots[[12]],
-             myplots[[13]],myplots[[14]],myplots[[15]],myplots[[16]],myplots[[17]],myplots[[18]],
-             myplots[[19]],myplots[[20]],myplots[[21]],myplots[[22]],myplots[[23]],myplots[[24]],
-             myplots[[25]],myplots[[26]],myplots[[27]],myplots[[28]],myplots[[29]],myplots[[30]],
-             myplots[[31]],myplots[[32]],myplots[[33]],myplots[[34]],myplots[[35]],myplots[[36]],
-             nrow = 6)
-ggsave("C:\\EFT\\EFD\\percentiles\\EFD_gee\\EFD_breaks_comparsion.jpg", p3,width = 40, height = 40, units = "cm")
+# p3 <- grid.arrange(myplots[[1]],myplots[[2]],myplots[[3]],myplots[[4]],myplots[[5]],myplots[[6]],
+#              myplots[[7]],myplots[[8]],myplots[[9]],myplots[[10]],myplots[[11]],myplots[[12]],
+#              myplots[[13]],myplots[[14]],myplots[[15]],myplots[[16]],myplots[[17]],myplots[[18]],
+#              myplots[[19]],myplots[[20]],myplots[[21]],myplots[[22]],myplots[[23]],myplots[[24]],
+#              myplots[[25]],myplots[[26]],myplots[[27]],myplots[[28]],myplots[[29]],myplots[[30]],
+#              myplots[[31]],myplots[[32]],myplots[[33]],myplots[[34]],myplots[[35]],myplots[[36]],
+#              nrow = 6)
+#ggsave("C:\\EFT\\EFD\\percentiles\\EFD_gee\\EFD_breaks_comparsion.jpg", p3,width = 40, height = 40, units = "cm")
