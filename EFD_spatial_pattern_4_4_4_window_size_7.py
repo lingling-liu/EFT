@@ -3,6 +3,7 @@ https://www.earthdatascience.org/courses/use-data-open-source-python/intro-raste
 https://www.kaggle.com/gauravduttakiit/satellite-imagery-analysis-using-python
 """
 
+from asyncore import compact_traceback
 import os
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap, BoundaryNorm
@@ -35,7 +36,7 @@ print('CHM max value:', np.nanmax(pre_lidar_chm_class_ma))
 plt.subplots(figsize=(20,4))
 
 plt.subplot(1, 4, 1)  # 1 line, 2 rows, index nr 1 (first position in the subplot)
-im = pre_lidar_chm_class_ma.plot.imshow(vmin=1, vmax=20)
+im = pre_lidar_chm_class_ma.plot.imshow(vmin=1, vmax=20,cmap = 'magma')
 #im = pre_lidar_chm.plot.imshow()
 #plt.colorbar(im,ticks=class_bins)
 plt.title('EFD_MODIS_b4_w7')
@@ -55,7 +56,7 @@ print('CHM min value:', np.nanmin(pre_lidar_chm_class_ma))
 print('CHM max value:', np.nanmax(pre_lidar_chm_class_ma))
 
 plt.subplot(1, 4, 2)  # 1 line, 2 rows, index nr 1 (first position in the subplot)
-pre_lidar_chm_class_ma.plot.imshow(vmin=1, vmax=20)
+pre_lidar_chm_class_ma.plot.imshow(vmin=1, vmax=20,cmap = 'magma')
 plt.title('EFD_Landsat_b4_w7')
 plt.axis('off')
 
@@ -72,7 +73,7 @@ print('CHM min value:', np.nanmin(pre_lidar_chm_class_ma))
 print('CHM max value:', np.nanmax(pre_lidar_chm_class_ma))
 
 plt.subplot(1, 4, 3)  # 1 line, 2 rows, index nr 1 (first position in the subplot)
-pre_lidar_chm_class_ma.plot.imshow(vmin=1, vmax=20)
+pre_lidar_chm_class_ma.plot.imshow(vmin=1, vmax=20,cmap = 'magma')
 plt.title('EFD_Landsat_b4_w7_NP_clip')
 plt.axis('off')
 
@@ -90,7 +91,7 @@ print('CHM min value:', np.nanmin(pre_lidar_chm_class_ma))
 print('CHM max value:', np.nanmax(pre_lidar_chm_class_ma))
 
 plt.subplot(1, 4, 4)  # 1 line, 2 rows, index nr 1 (first position in the subplot)
-pre_lidar_chm_class_ma.plot.imshow(vmin=1, vmax=20)
+pre_lidar_chm_class_ma.plot.imshow(vmin=1, vmax=20,cmap = 'magma')
 plt.title('EFD_Landsat_b4_w7_NP_local')
 plt.axis('off')
 

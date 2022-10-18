@@ -101,12 +101,12 @@ for(MODIS in c('MODIS_b2_w3', 'MODIS_b2_w5','MODIS_b2_w7', 'MODIS_b4_w3','MODIS_
     dat <- as.data.frame(cbind(x,y))
     dat$density <- get_density(dat$x, dat$y, n = 100)
     a <- ggplot(dat) + geom_point(aes(x, y, color = density)) +
-      scale_color_viridis() +
+      #scale_color_viridis() +
       xlab(MODIS) +
       ylab(Landsat) +
       scale_x_continuous(limits = c(0.8,max(x)+0.5)) + 
       scale_y_continuous(limits = c(0.8,max(y)+0.5)) + 
-      geom_abline(intercept = 0, slope = 1) +
+      #geom_abline(intercept = 0, slope = 1) +
       #annotate('text', x= 1.3, y = 5.5, label = paste('RMSE of', round(rmse,3))) +
       annotate('text', x= 2, y = max(y)+0.3, label = paste('R2 of', round(rsquared,3))) +
       theme_classic() +
@@ -135,4 +135,9 @@ p3 <- grid.arrange(myplots[[1]],myplots[[2]],myplots[[3]],myplots[[4]],myplots[[
              myplots[[31]],myplots[[32]],myplots[[33]],myplots[[34]],myplots[[35]],myplots[[36]],
              nrow = 6)
 
-ggsave("C:\\EFT\\EFD\\percentiles\\EFD_gee\\EFD_sensors_comparsion.jpg", p3,width = 40, height = 40, units = "cm")
+ggsave("C:\\EFT\\EFD\\percentiles\\EFD_gee\\EFD_sensors_comparsion_default_color.jpg", p3,width = 40, height = 40, units = "cm")
+
+
+p4 <- arrangeGrob(myplots[[15]],myplots[[36]],
+                  nrow = 1)
+ggsave("C:\\EFT\\EFD\\percentiles\\EFD_gee\\EFD_sensors_comparsion_main.jpg", p4,width = 12, height = 6, units = "cm")
