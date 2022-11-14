@@ -80,7 +80,7 @@ print('CHM min value:', np.nanmin(pre_lidar_chm_class_ma))
 print('CHM max value:', np.nanmax(pre_lidar_chm_class_ma))
 
 plt.subplot(1, 4, 2)  # 1 line, 2 rows, index nr 1 (first position in the subplot)
-pre_lidar_chm_class_ma.plot.imshow(vmin=1, vmax=20,cmap = 'magma')
+pre_lidar_chm_class_ma.plot.imshow(vmin=1, vmax=20,cmap = my_cmap)
 plt.title('EFD_Landsat_b4_w7')
 plt.axis('off')
 
@@ -97,7 +97,7 @@ print('CHM min value:', np.nanmin(pre_lidar_chm_class_ma))
 print('CHM max value:', np.nanmax(pre_lidar_chm_class_ma))
 
 plt.subplot(1, 4, 3)  # 1 line, 2 rows, index nr 1 (first position in the subplot)
-pre_lidar_chm_class_ma.plot.imshow(vmin=1, vmax=20,cmap = 'magma')
+pre_lidar_chm_class_ma.plot.imshow(vmin=1, vmax=20,cmap = my_cmap)
 plt.title('EFD_Landsat_b4_w7_NP_clip')
 plt.axis('off')
 
@@ -115,7 +115,7 @@ print('CHM min value:', np.nanmin(pre_lidar_chm_class_ma))
 print('CHM max value:', np.nanmax(pre_lidar_chm_class_ma))
 
 plt.subplot(1, 4, 4)  # 1 line, 2 rows, index nr 1 (first position in the subplot)
-pre_lidar_chm_class_ma.plot.imshow(vmin=1, vmax=20,cmap = 'magma')
+pre_lidar_chm_class_ma.plot.imshow(vmin=1, vmax=20,cmap = my_cmap)
 plt.title('EFD_Landsat_b4_w7_NP_local')
 plt.axis('off')
 
