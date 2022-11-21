@@ -26,10 +26,11 @@ require(readxl)
 require(tidyverse)
 
 #set the working directory from which the files will be read from
-setwd("C:\\EFT\\EFD\\percentiles\\EFD_gee\\nodata\\1km")
+setwd("C:\\EFT\\EFD\\CR\\nodata\\1km")
+
 
 #create a list of the files from your target directory
-file_list <- list.files(path="C:\\EFT\\EFD\\percentiles\\EFD_gee\\nodata\\1km",pattern = "tif")
+file_list <- list.files(path="C:\\EFT\\EFD\\CR\\nodata\\1km",pattern = "tif")
 
 #initiate a blank data frame, each iteration of the loop will append the data from the given file to this variable
 dataset <- data.frame()
@@ -105,6 +106,15 @@ for(MODIS in c('MODIS_b2_w3', 'MODIS_b2_w5','MODIS_b2_w7','Landsat_b2_w3', 'Land
     print(c(MODIS, Landsat, rmse, rsquared))
  
     dat <- as.data.frame(cbind(x,y))
+    
+    reg<-lm(formula = y ~ x,
+            data=dat)                      
+    
+    #get intercept and slope value
+    coeff<-coefficients(reg)          
+    intercept<-coeff[1]
+    slope<- coeff[2]
+    
     dat$density <- get_density(dat$x, dat$y, n = 100)
     a <- ggplot(dat) + geom_point(aes(x, y, color = density)) +
       #scale_color_viridis(option="mako") +
@@ -112,9 +122,20 @@ for(MODIS in c('MODIS_b2_w3', 'MODIS_b2_w5','MODIS_b2_w7','Landsat_b2_w3', 'Land
       # https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
       xlab(MODIS) +
       ylab(Landsat) +
+      # a and d
+      xlim(1, 8) +
+      ylim(1, 8) +
+      # # b and e
+      # xlim(1, 15) +
+      # ylim(1, 15) +
+      # # c and f
+      # xlim(1, 25) +
+      # ylim(1, 25) +
       scale_x_continuous(limits = c(0.1,max(x)+0.5)) + 
       scale_y_continuous(limits = c(0.1,max(y)+0.5)) + 
-      #geom_abline(intercept = 0, slope = 1) +
+      #https://www.geeksforgeeks.org/add-regression-line-to-ggplot2-plot-in-r/
+      geom_abline(intercept = intercept , slope = slope,color="red", 
+                  linetype="dashed", size=1) +
       #annotate('text', x= 1.3, y = 5.5, label = paste('RMSE of', round(rmse,3))) +
       annotate('text', x= 1.3, y = max(y)+0.3, label = paste('R2 of', round(rsquared,3))) +
       theme_classic() +
@@ -137,16 +158,34 @@ for(MODIS in c('MODIS_b2_w3', 'MODIS_b2_w5','MODIS_b2_w7','Landsat_b2_w3', 'Land
 #              nrow = 6)
 #dev.off() # Close the file
 #https://stackoverflow.com/questions/17059099/saving-grid-arrange-plot-to-file
-p3 <- arrangeGrob(myplots[[1]],myplots[[2]],myplots[[3]],myplots[[4]],myplots[[5]],myplots[[6]],
-             myplots[[7]],myplots[[8]],myplots[[9]],myplots[[10]],myplots[[11]],myplots[[12]],
-             myplots[[13]],myplots[[14]],myplots[[15]],myplots[[16]],myplots[[17]],myplots[[18]],
-             myplots[[19]],myplots[[20]],myplots[[21]],myplots[[22]],myplots[[23]],myplots[[24]],
-             myplots[[25]],myplots[[26]],myplots[[27]],myplots[[28]],myplots[[29]],myplots[[30]],
-             myplots[[31]],myplots[[32]],myplots[[33]],myplots[[34]],myplots[[35]],myplots[[36]],
-             nrow = 6)
-ggsave("C:\\EFT\\EFD\\percentiles\\EFD_gee\\EFD_breaks_comparsion_default_color.jpg", p3,width = 40, height = 40, units = "cm")
+# p3 <- arrangeGrob(myplots[[1]],myplots[[2]],myplots[[3]],myplots[[4]],myplots[[5]],myplots[[6]],
+#              myplots[[7]],myplots[[8]],myplots[[9]],myplots[[10]],myplots[[11]],myplots[[12]],
+#              myplots[[13]],myplots[[14]],myplots[[15]],myplots[[16]],myplots[[17]],myplots[[18]],
+#              myplots[[19]],myplots[[20]],myplots[[21]],myplots[[22]],myplots[[23]],myplots[[24]],
+#              myplots[[25]],myplots[[26]],myplots[[27]],myplots[[28]],myplots[[29]],myplots[[30]],
+#              myplots[[31]],myplots[[32]],myplots[[33]],myplots[[34]],myplots[[35]],myplots[[36]],
+#              nrow = 6)
+#ggsave("C:\\EFT\\EFD\\percentiles\\EFD_gee\\EFD_breaks_comparsion_default_color.jpg", p3,width = 40, height = 40, units = "cm")
 
-p4 <- arrangeGrob(myplots[[1]],myplots[[8]],myplots[[15]],
-                  myplots[[22]],myplots[[29]],myplots[[36]],
+# p4 <- arrangeGrob(myplots[[1]],myplots[[8]],myplots[[15]],
+#                   myplots[[22]],myplots[[29]],myplots[[36]],
+#                   nrow = 2)
+# ggsave("C:\\EFT\\EFD\\Fig\\EFD_breaks_comparsion_main.jpg", p4,width = 18, height = 12, units = "cm")
+
+
+p4 <- arrangeGrob(myplots[[1]],
+                  myplots[[22]],
                   nrow = 2)
-ggsave("C:\\EFT\\EFD\\percentiles\\EFD_gee\\EFD_breaks_comparsion_main.jpg", p4,width = 18, height = 12, units = "cm")
+ggsave("C:\\EFT\\EFD\\Fig\\EFD_breaks_comparsion_a_d.jpg", p4,width = 6, height = 12, units = "cm")
+
+
+p4 <- arrangeGrob(myplots[[8]],
+                  myplots[[29]],
+                  nrow = 2)
+ggsave("C:\\EFT\\EFD\\Fig\\EFD_breaks_comparsion_b_e.jpg", p4,width = 6, height = 12, units = "cm")
+
+
+p4 <- arrangeGrob(myplots[[15]],
+                  myplots[[36]],
+                  nrow = 2)
+ggsave("C:\\EFT\\EFD\\Fig\\EFD_breaks_comparsion_c_f.jpg", p4,width = 6, height = 12, units = "cm")
