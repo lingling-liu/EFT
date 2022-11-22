@@ -131,7 +131,7 @@ pre_lidar_chm_class_ma.plot.imshow(vmin=1, vmax=64,cmap=new_cmap)
 plt.title('EFT_Landsat_b4')
 plt.axis('off')
 
-lidar_dem_path = r"C:\EFT\EFT_Landsat7_EVI_2001_2017_NP_4_4.tif"
+lidar_dem_path = r"C:\EFT\EFT_Landsat_EVI_2001_2017_4_4_NP_clipped.tif"
 print(lidar_dem_path)
 pre_lidar_chm1 = rxr.open_rasterio(lidar_dem_path, masked=True)
 print(type(pre_lidar_chm1))

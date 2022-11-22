@@ -4,6 +4,11 @@ remove(list=ls())
 # install.packages("colorspace")
 # devtools::install_github("clauswilke/colorblindr")
 
+# remove.packages(c("ggplot2", "data.table"))
+# install.packages('Rcpp', dependencies = TRUE)
+install.packages('ggplot2', dependencies = TRUE)
+# install.packages('data.table', dependencies = TRUE)
+
 library(ggplot2)
 library(grid)
 library(gridExtra)
@@ -18,7 +23,7 @@ library(sjlabelled)
 library(Metrics)
 library(cowplot)
 library(colorspace)
-library(colorblindr)
+#library(colorblindr)
 
 #https://rpubs.com/LMunyan/363306
 #read in required packages
@@ -123,8 +128,8 @@ for(MODIS in c('MODIS_b2_w3', 'MODIS_b2_w5','MODIS_b2_w7','Landsat_b2_w3', 'Land
       xlab(MODIS) +
       ylab(Landsat) +
       # a and d
-      xlim(1, 8) +
-      ylim(1, 8) +
+      # scale_x_continuous(limits = c(1,8)) +
+      # scale_y_continuous(limits = c(1,8)) +
       # # b and e
       # xlim(1, 15) +
       # ylim(1, 15) +
@@ -179,13 +184,13 @@ p4 <- arrangeGrob(myplots[[1]],
 ggsave("C:\\EFT\\EFD\\Fig\\EFD_breaks_comparsion_a_d.jpg", p4,width = 6, height = 12, units = "cm")
 
 
-p4 <- arrangeGrob(myplots[[8]],
-                  myplots[[29]],
-                  nrow = 2)
-ggsave("C:\\EFT\\EFD\\Fig\\EFD_breaks_comparsion_b_e.jpg", p4,width = 6, height = 12, units = "cm")
-
-
-p4 <- arrangeGrob(myplots[[15]],
-                  myplots[[36]],
-                  nrow = 2)
-ggsave("C:\\EFT\\EFD\\Fig\\EFD_breaks_comparsion_c_f.jpg", p4,width = 6, height = 12, units = "cm")
+# p4 <- arrangeGrob(myplots[[8]],
+#                   myplots[[29]],
+#                   nrow = 2)
+# ggsave("C:\\EFT\\EFD\\Fig\\EFD_breaks_comparsion_b_e.jpg", p4,width = 6, height = 12, units = "cm")
+# 
+# 
+# p4 <- arrangeGrob(myplots[[15]],
+#                   myplots[[36]],
+#                   nrow = 2)
+# ggsave("C:\\EFT\\EFD\\Fig\\EFD_breaks_comparsion_c_f.jpg", p4,width = 6, height = 12, units = "cm")

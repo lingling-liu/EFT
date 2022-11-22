@@ -43,7 +43,7 @@ import seaborn as sns
 sns.set(font_scale=1.5, style="whitegrid")
 
 
-lidar_dem_path = r"C:\EFT\EFD\EFD_MODIS_CR_b4_win7.tif"
+lidar_dem_path = r"C:\EFT\EFD\CR\EFD_MODIS_CR_b4_win7.tif"
 print(lidar_dem_path)
 pre_lidar_chm1 = rxr.open_rasterio(lidar_dem_path, masked=True)
 print(type(pre_lidar_chm1))
@@ -60,14 +60,14 @@ print('CHM max value:', np.nanmax(pre_lidar_chm_class_ma))
 plt.subplots(figsize=(20,4))
 
 plt.subplot(1, 4, 1)  # 1 line, 2 rows, index nr 1 (first position in the subplot)
-im = pre_lidar_chm_class_ma.plot.imshow(vmin=1, vmax=20,cmap=my_cmap)
+im = pre_lidar_chm_class_ma.plot.imshow(vmin=1, vmax=15,cmap=my_cmap)
 #im = pre_lidar_chm.plot.imshow()
 #plt.colorbar(im,ticks=class_bins)
 plt.title('EFD_MODIS_b4_w7')
 plt.axis('off')
 
 
-lidar_dem_path = r"C:\EFT\EFD\EFD_Landsat_CR_b4_win7.tif"
+lidar_dem_path = r"C:\EFT\EFD\CR\EFD_Landsat_CR_b4_win7.tif"
 print(lidar_dem_path)
 pre_lidar_chm1 = rxr.open_rasterio(lidar_dem_path, masked=True)
 print(type(pre_lidar_chm1))
@@ -80,7 +80,7 @@ print('CHM min value:', np.nanmin(pre_lidar_chm_class_ma))
 print('CHM max value:', np.nanmax(pre_lidar_chm_class_ma))
 
 plt.subplot(1, 4, 2)  # 1 line, 2 rows, index nr 1 (first position in the subplot)
-pre_lidar_chm_class_ma.plot.imshow(vmin=1, vmax=20,cmap = my_cmap)
+pre_lidar_chm_class_ma.plot.imshow(vmin=1, vmax=15,cmap = my_cmap)
 plt.title('EFD_Landsat_b4_w7')
 plt.axis('off')
 
@@ -97,12 +97,12 @@ print('CHM min value:', np.nanmin(pre_lidar_chm_class_ma))
 print('CHM max value:', np.nanmax(pre_lidar_chm_class_ma))
 
 plt.subplot(1, 4, 3)  # 1 line, 2 rows, index nr 1 (first position in the subplot)
-pre_lidar_chm_class_ma.plot.imshow(vmin=1, vmax=20,cmap = my_cmap)
+pre_lidar_chm_class_ma.plot.imshow(vmin=1, vmax=15,cmap = my_cmap)
 plt.title('EFD_Landsat_b4_w7_NP_clip')
 plt.axis('off')
 
 
-lidar_dem_path = r"C:\EFT\EFD\EFD_Landsat_NP_b4_win7.tif"
+lidar_dem_path = r"C:\EFT\EFD\NP\EFD_Landsat_NP_b4_win7.tif"
 print(lidar_dem_path)
 pre_lidar_chm1 = rxr.open_rasterio(lidar_dem_path, masked=True)
 print(type(pre_lidar_chm1))
@@ -115,7 +115,7 @@ print('CHM min value:', np.nanmin(pre_lidar_chm_class_ma))
 print('CHM max value:', np.nanmax(pre_lidar_chm_class_ma))
 
 plt.subplot(1, 4, 4)  # 1 line, 2 rows, index nr 1 (first position in the subplot)
-pre_lidar_chm_class_ma.plot.imshow(vmin=1, vmax=20,cmap = my_cmap)
+pre_lidar_chm_class_ma.plot.imshow(vmin=1, vmax=15,cmap = my_cmap)
 plt.title('EFD_Landsat_b4_w7_NP_local')
 plt.axis('off')
 
