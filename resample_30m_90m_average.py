@@ -2,8 +2,8 @@ from osgeo import gdal
 import os
 from pathlib import Path
 
-directory = "C:/EFT/EFD/clip/nodata"
-output = "C:/EFT/EFD/clip/nodata/resample/"
+directory = "C:/EFT/EFD/NP/nodata"
+output = "C:/EFT/EFD/NP/nodata/resample/"
 
 for filename in os.listdir(directory):
     f = os.path.join(directory, filename)

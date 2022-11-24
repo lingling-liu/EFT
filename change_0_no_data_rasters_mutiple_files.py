@@ -7,8 +7,12 @@ from pathlib import Path
 
 #os.chdir("C:/EFT/EFD/percentiles/EFD_gee/NP/ori")
 #directory = "C:/EFT/EFD/percentiles/EFD_gee/NP/ori"
-directory = "C:/EFT/EFD/clip"
-output = "C:/EFT/EFD/clip/nodata/"
+
+#directory = "C:/EFT/EFD/CR"
+#output = "C:/EFT/EFD/CR/nodata/" 
+
+directory = "C:/EFT/EFD/NP"
+output = "C:/EFT/EFD/NP/nodata/"
 
 translateoptions = gdal.TranslateOptions(gdal.ParseCommandLine("-ot Float32 -a_nodata 0 COMPRESS=LZW"))
 

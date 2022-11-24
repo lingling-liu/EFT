@@ -529,18 +529,41 @@ i <- 1
     
 #**h*******************************************************
       
-      MODIS <- 'MODIS_b4_w7'
-    Landsat <- 'Landsat_b4_w7'
-    print(MODIS)
-    print(Landsat)
     
-    x1 <- dataset[MODIS]
-    y1 <- dataset[Landsat]
+    #initiate a blank data frame, each iteration of the loop will append the data from the given file to this variable
+    dataset1 <- data.frame()
+    
+    str_name = "C:\\EFT\\EFD\\clip\\nodata\\resample\\EFD_Landsat_NP_clipped_b4_win7_nodata0_compressed_90m.tif"
+    imported_raster=raster(str_name)
+    mean11 <- as.data.frame(imported_raster, xy = FALSE)
+    temp_data  <- as.vector(mean11)
+    dataset1 <- rbind(dataset1, temp_data) #for each iteration, bind the new data to the building dataset
+    
+
+    str_name = "C:\\EFT\\EFD\\NP\\nodata\\resample\\EFD_Landsat_NP_b4_win7_nodata0_compressed_90m.tif"
+    print(str_name)
+    imported_raster=raster(str_name)
+    mean11 <- as.data.frame(imported_raster, xy = FALSE)
+    temp_data  <- as.vector(mean11)
+    dataset1 <- cbind(dataset1, temp_data) #for each iteration, bind the new data to the building dataset
+
+    
+    # Applying colnames
+    colnames(dataset1) <- c('Nationally Derived', 'Locally Derived') 
+    
+    dataset1[is.na(dataset1)] <- -9999
+    
+    MODIS <- 'Nationally Derived'
+    Landsat <- 'Locally Derived'
+    
+    x1 <- dataset1[MODIS]
+    y1 <- dataset1[Landsat]
     
     index <- which(x1 != -9999 & y1 != -9999)
-    
     x <- x1[index,1]
     y <- y1[index,1]
+    
+    
     print(c(min(x),max(x)))
     print(c(min(y),max(y)))
     
@@ -562,74 +585,32 @@ i <- 1
     intercept<-coeff[1]
     slope<- coeff[2]
     
+    
+    dat_all <- as.data.frame(cbind(x,y))
+    dat <- dat_all[sample(nrow(dat_all), 200000),]
     dat$density <- get_density(dat$x, dat$y, n = 100)
     a <- ggplot(dat) + geom_point(aes(x, y, color = density)) +
-      #scale_color_viridis(option="mako") +
       #scale_color_viridis() +
-      # https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
-      xlab(MODIS) +
-      ylab(Landsat) +
-      # a and d
+      xlab(expression(atop("Landsat, Nationally Derived", paste("b4_w7_Nicoya Peninsula")))) +
+      ylab(expression(atop("Landsat, Locally Derived", paste("b4_w7_Nicoya Peninsula")))) +
       scale_x_continuous(limits = c(1,25)) +
       scale_y_continuous(limits = c(1,25)) +
-      # # b and e
-      # xlim(1, 15) +
-      # ylim(1, 15) +
-      # # c and f
-      # xlim(1, 25) +
-      # ylim(1, 25) +
-      #https://www.geeksforgeeks.org/add-regression-line-to-ggplot2-plot-in-r/
+      #geom_abline(intercept = 0, slope = 1) +
+      #annotate('text', x= 1.3, y = 5.5, label = paste('RMSE of', round(rmse,3))) +
       geom_abline(intercept = intercept , slope = slope,color="red", 
                   linetype="dashed", size=1) +
       #annotate('text', x= 1.3, y = 5.5, label = paste('RMSE of', round(rmse,3))) +
-      annotate('text', x= 6, y = 25, label = paste('R2 of', round(rsquared,3))) +
-      annotate('text', x= 25, y = 25, label = paste('(g)')) +
+      annotate('text', x= 7, y = 25, label = paste('R2 of', round(rsquared,3))) +
+      annotate('text', x= 25, y = 25, label = paste('(h)')) +
       theme_classic() +
       theme(legend.position = "none") 
-    #print(a)
-    myplots[[7]] <- a
-
+    myplots[[8]] <- a
+    
+    
 #https://stackoverflow.com/questions/17059099/saving-grid-arrange-plot-to-file
-
-#pdf/jpeg/png("C:\\EFT\\EFD\\percentiles\\EFD_gee\\filename.pdf", width = 10, height = 10) # Open a new pdf file
-# grid.arrange(myplots[[1]],myplots[[2]],myplots[[3]],myplots[[4]],myplots[[5]],myplots[[6]],
-#              myplots[[7]],myplots[[8]],myplots[[9]],myplots[[10]],myplots[[11]],myplots[[12]],
-#              myplots[[13]],myplots[[14]],myplots[[15]],myplots[[16]],myplots[[17]],myplots[[18]],
-#              myplots[[19]],myplots[[20]],myplots[[21]],myplots[[22]],myplots[[23]],myplots[[24]],
-#              myplots[[25]],myplots[[26]],myplots[[27]],myplots[[28]],myplots[[29]],myplots[[30]],
-#              myplots[[31]],myplots[[32]],myplots[[33]],myplots[[34]],myplots[[35]],myplots[[36]],
-#              nrow = 6)
-#dev.off() # Close the file
-#https://stackoverflow.com/questions/17059099/saving-grid-arrange-plot-to-file
-# p3 <- arrangeGrob(myplots[[1]],myplots[[2]],myplots[[3]],myplots[[4]],myplots[[5]],myplots[[6]],
-#              myplots[[7]],myplots[[8]],myplots[[9]],myplots[[10]],myplots[[11]],myplots[[12]],
-#              myplots[[13]],myplots[[14]],myplots[[15]],myplots[[16]],myplots[[17]],myplots[[18]],
-#              myplots[[19]],myplots[[20]],myplots[[21]],myplots[[22]],myplots[[23]],myplots[[24]],
-#              myplots[[25]],myplots[[26]],myplots[[27]],myplots[[28]],myplots[[29]],myplots[[30]],
-#              myplots[[31]],myplots[[32]],myplots[[33]],myplots[[34]],myplots[[35]],myplots[[36]],
-#              nrow = 6)
-#ggsave("C:\\EFT\\EFD\\percentiles\\EFD_gee\\EFD_breaks_comparsion_default_color.jpg", p3,width = 40, height = 40, units = "cm")
-
-# p4 <- arrangeGrob(myplots[[1]],myplots[[8]],myplots[[15]],
-#                   myplots[[22]],myplots[[29]],myplots[[36]],
-#                   nrow = 2)
-# ggsave("C:\\EFT\\EFD\\Fig\\EFD_breaks_comparsion_main.jpg", p4,width = 18, height = 12, units = "cm")
-
 
 p4 <- arrangeGrob(myplots[[1]],myplots[[2]],myplots[[3]],
                   myplots[[4]],myplots[[5]],myplots[[6]],
-                  myplots[[7]],
+                  myplots[[7]],  myplots[[8]],
                   nrow = 3)
-ggsave("C:\\EFT\\EFD\\Fig\\Figure3.jpg", p4,width = 18, height = 18, units = "cm")
-
-
-# p4 <- arrangeGrob(myplots[[8]],
-#                   myplots[[29]],
-#                   nrow = 2)
-# ggsave("C:\\EFT\\EFD\\Fig\\EFD_breaks_comparsion_b_e.jpg", p4,width = 6, height = 12, units = "cm")
-# 
-# 
-# p4 <- arrangeGrob(myplots[[15]],
-#                   myplots[[36]],
-#                   nrow = 2)
-# ggsave("C:\\EFT\\EFD\\Fig\\EFD_breaks_comparsion_c_f.jpg", p4,width = 6, height = 12, units = "cm")
+ggsave("C:\\EFT\\Fig\\Figure3.jpg", p4,width = 18, height = 18, units = "cm")
