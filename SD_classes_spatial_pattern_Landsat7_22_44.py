@@ -15,7 +15,7 @@ import earthpy as et
 #import earthpy.plot as ep
 
 # open the dataset and retrieve raster data as an array
-lidar_dem_path = r'C:\EFT\Landsat7_SD_2001_2017.tif'
+lidar_dem_path = r"C:\EFT\EFAs\CR\Landsat7_SD_2001_2017.tif"
 print(lidar_dem_path)
 dataset = gdal.Open(lidar_dem_path)
 print(dataset)
@@ -37,34 +37,34 @@ print(percentile_0,percentile_50)
 output = np.where((array > percentile_0), 1, output)
 output = np.where((array > percentile_50), 2, output)
 
-outname = r'C:\EFT\Landsat7_SD_2001_2017_2classes.tif'
+outname = r'C:\EFT\EFAs\CR\reclasses\Landsat7_SD_2001_2017_2classes.tif'
 gdal_array.SaveArray(output, outname, "gtiff", prototype=dataset)
 
 
-lidar_dem_path = outname
-print(lidar_dem_path)
-pre_lidar_chm1 = rxr.open_rasterio(lidar_dem_path, masked=True)
-print(type(pre_lidar_chm1))
-print(pre_lidar_chm1.shape)
-pre_lidar_chm = np.squeeze(pre_lidar_chm1, axis=0)
-print(type(pre_lidar_chm))
+# lidar_dem_path = outname
+# print(lidar_dem_path)
+# pre_lidar_chm1 = rxr.open_rasterio(lidar_dem_path, masked=True)
+# print(type(pre_lidar_chm1))
+# print(pre_lidar_chm1.shape)
+# pre_lidar_chm = np.squeeze(pre_lidar_chm1, axis=0)
+# print(type(pre_lidar_chm))
 
-pre_lidar_chm_class_ma = pre_lidar_chm.where(pre_lidar_chm > 0)
+# pre_lidar_chm_class_ma = pre_lidar_chm.where(pre_lidar_chm > 0)
 
-# Plot data using nicer colors
-colors = ['blue', 'yellow']
-class_bins = [1, 2, 3]
-cmap = ListedColormap(colors)
-norm = BoundaryNorm(class_bins, 
-                    len(colors))
+# # Plot data using nicer colors
+# colors = ['blue', 'yellow']
+# class_bins = [1, 2, 3]
+# cmap = ListedColormap(colors)
+# norm = BoundaryNorm(class_bins, 
+#                     len(colors))
 
 
-plt.subplots(figsize=(10,4))
+# plt.subplots(figsize=(10,4))
 
-plt.subplot(1, 2, 1)  # 1 line, 2 rows, index nr 1 (first position in the subplot)
-im = pre_lidar_chm_class_ma.plot.imshow(cmap=cmap,norm=norm)
-plt.title('Landsat7_SD_2classes')
-plt.axis('off')
+# plt.subplot(1, 2, 1)  # 1 line, 2 rows, index nr 1 (first position in the subplot)
+# im = pre_lidar_chm_class_ma.plot.imshow(cmap=cmap,norm=norm)
+# plt.title('Landsat7_SD_2classes')
+# plt.axis('off')
 
 
 #********************************* 4 classes******************************
@@ -80,32 +80,32 @@ output = np.where((array > percentile_25), 2, output)
 output = np.where((array > percentile_50), 3, output)
 output = np.where((array > percentile_75), 4, output)
 
-outname = r'C:\EFT\Landsat7_SD_2001_2017_4classes.tif'
+outname = r'C:\EFT\EFAs\CR\reclasses\Landsat7_SD_2001_2017_4classes.tif'
 gdal_array.SaveArray(output, outname, "gtiff", prototype=dataset)
 
 
-lidar_dem_path = outname
-print(lidar_dem_path)
-pre_lidar_chm1 = rxr.open_rasterio(lidar_dem_path, masked=True)
-print(type(pre_lidar_chm1))
-print(pre_lidar_chm1.shape)
-pre_lidar_chm = np.squeeze(pre_lidar_chm1, axis=0)
-print(type(pre_lidar_chm))
+# lidar_dem_path = outname
+# print(lidar_dem_path)
+# pre_lidar_chm1 = rxr.open_rasterio(lidar_dem_path, masked=True)
+# print(type(pre_lidar_chm1))
+# print(pre_lidar_chm1.shape)
+# pre_lidar_chm = np.squeeze(pre_lidar_chm1, axis=0)
+# print(type(pre_lidar_chm))
 
-pre_lidar_chm_class_ma = pre_lidar_chm.where(pre_lidar_chm > 0)
+# pre_lidar_chm_class_ma = pre_lidar_chm.where(pre_lidar_chm > 0)
 
-# Plot data using nicer colors
-colors = ['blue', 'yellow', 'green', 'orange']
-class_bins = [1, 2, 3, 4, 5]
-cmap = ListedColormap(colors)
-norm = BoundaryNorm(class_bins, 
-                    len(colors))
+# # Plot data using nicer colors
+# colors = ['blue', 'yellow', 'green', 'orange']
+# class_bins = [1, 2, 3, 4, 5]
+# cmap = ListedColormap(colors)
+# norm = BoundaryNorm(class_bins, 
+#                     len(colors))
 
 
-plt.subplot(1, 2, 2)  # 1 line, 2 rows, index nr 1 (first position in the subplot)
-im = pre_lidar_chm_class_ma.plot.imshow(cmap=cmap,norm=norm)
-plt.title('Landsat7_SD_4classes')
-plt.axis('off')
+# plt.subplot(1, 2, 2)  # 1 line, 2 rows, index nr 1 (first position in the subplot)
+# im = pre_lidar_chm_class_ma.plot.imshow(cmap=cmap,norm=norm)
+# plt.title('Landsat7_SD_4classes')
+# plt.axis('off')
 
-#plt.show()
-plt.savefig(r"C:\EFT\Landsat7_SD_spatial_patterns_22_44.png")
+# #plt.show()
+# plt.savefig(r"C:\EFT\Landsat7_SD_spatial_patterns_22_44.png")

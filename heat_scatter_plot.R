@@ -19,10 +19,10 @@ require(readxl)
 require(tidyverse)
 
 #set the working directory from which the files will be read from
-setwd("C:\\EFT\\EFD\\percentiles\\EFD_gee\\nodata\\1km")
+setwd("C:\\EFT\\EFD\\CR\\nodata\\1km")
 
 #create a list of the files from your target directory
-file_list <- list.files(path="C:\\EFT\\EFD\\percentiles\\EFD_gee\\nodata\\1km",pattern = "tif")
+file_list <- list.files(path="C:\\EFT\\EFD\\CR\\nodata\\1km",pattern = "tif")
 
 #initiate a blank data frame, each iteration of the loop will append the data from the given file to this variable
 dataset <- data.frame()
@@ -97,8 +97,17 @@ for(MODIS in c('MODIS_b2_w3', 'MODIS_b2_w5','MODIS_b2_w7', 'MODIS_b4_w3','MODIS_
     rmse <- (sum((y-x)**2, na.rm =T) / length(y))**0.5
     rsquared <- rsq(x, y)
     print(c(MODIS, Landsat, rmse, rsquared))
- 
+    
     dat <- as.data.frame(cbind(x,y))
+    
+    reg<-lm(formula = y ~ x,
+            data=dat)                      
+    
+    #get intercept and slope value
+    coeff<-coefficients(reg)          
+    intercept<-coeff[1]
+    slope<- coeff[2]
+ 
     dat$density <- get_density(dat$x, dat$y, n = 100)
     a <- ggplot(dat) + geom_point(aes(x, y, color = density)) +
       #scale_color_viridis() +
@@ -106,6 +115,8 @@ for(MODIS in c('MODIS_b2_w3', 'MODIS_b2_w5','MODIS_b2_w7', 'MODIS_b4_w3','MODIS_
       ylab(Landsat) +
       scale_x_continuous(limits = c(0.8,max(x)+0.5)) + 
       scale_y_continuous(limits = c(0.8,max(y)+0.5)) + 
+      geom_abline(intercept = intercept , slope = slope,color="red", 
+                  linetype="dashed", size=1) +
       #geom_abline(intercept = 0, slope = 1) +
       #annotate('text', x= 1.3, y = 5.5, label = paste('RMSE of', round(rmse,3))) +
       annotate('text', x= 2, y = max(y)+0.3, label = paste('R2 of', round(rsquared,3))) +
@@ -135,9 +146,5 @@ p3 <- grid.arrange(myplots[[1]],myplots[[2]],myplots[[3]],myplots[[4]],myplots[[
              myplots[[31]],myplots[[32]],myplots[[33]],myplots[[34]],myplots[[35]],myplots[[36]],
              nrow = 6)
 
-ggsave("C:\\EFT\\EFD\\percentiles\\EFD_gee\\EFD_sensors_comparsion_default_color.jpg", p3,width = 40, height = 40, units = "cm")
+ggsave("C:\\EFT\\Fig\\EFD_sensors_comparsion_default_color.jpg", p3,width = 40, height = 40, units = "cm")
 
-
-p4 <- arrangeGrob(myplots[[15]],myplots[[36]],
-                  nrow = 1)
-ggsave("C:\\EFT\\EFD\\percentiles\\EFD_gee\\EFD_sensors_comparsion_main.jpg", p4,width = 12, height = 6, units = "cm")

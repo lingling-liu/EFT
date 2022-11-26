@@ -15,7 +15,7 @@ import earthpy as et
 #import earthpy.plot as ep
 
 # open the dataset and retrieve raster data as an array
-lidar_dem_path = r"C:\EFT\EFAs\CR\Landsat7_mean_2001_2017.tif"
+lidar_dem_path = r"C:\EFT\EFAs\CR\Landsat7_MMax_2001_2017.tif"
 print(lidar_dem_path)
 dataset = gdal.Open(lidar_dem_path)
 print(dataset)
@@ -28,16 +28,13 @@ print(type(np.max(dataset_ma)))
 # create an array of zeros the same shape as the input array
 output = np.zeros_like(array).astype(np.uint8)
 
+
 #********************************* 2 classes******************************
-# use the numpy percentile function to calculate percentile thresholds
-percentile_50 = np.percentile(dataset_ma, 50)
-percentile_0 = np.percentile(dataset_ma, 0)
-print(percentile_0,percentile_50)
+#2 classes : DOY 125-300; 300-365, and 365-124
+output = np.where((array > 125) & (array <=300), 1, output)
+output = np.where(((array > 300) & (array <=365)) | ((array >= 1) & (array <=125)), 2, output)
 
-output = np.where((array > percentile_0), 1, output)
-output = np.where((array > percentile_50), 2, output)
-
-outname = r'C:\EFT\EFAs\CR\reclasses\Landsat7_mean_2001_2017_2classes.tif'
+outname = r'C:\EFT\EFAs\CR\reclasses\Landsat7_MMax_2001_2017_2classes.tif'
 gdal_array.SaveArray(output, outname, "gtiff", prototype=dataset)
 
 
@@ -63,24 +60,20 @@ gdal_array.SaveArray(output, outname, "gtiff", prototype=dataset)
 
 # plt.subplot(1, 2, 1)  # 1 line, 2 rows, index nr 1 (first position in the subplot)
 # im = pre_lidar_chm_class_ma.plot.imshow(cmap=cmap,norm=norm)
-# plt.title('Landsat7_SD_2classes')
+# plt.title('MODIS_MMax_2classes')
 # plt.axis('off')
 
 
 #********************************* 4 classes******************************
 # use the numpy percentile function to calculate percentile thresholds
-percentile_75 = np.percentile(dataset_ma, 75)
-percentile_50 = np.percentile(dataset_ma, 50)
-percentile_25 = np.percentile(dataset_ma, 25)
-percentile_0 = np.percentile(dataset_ma, 0)
-print(percentile_0,percentile_25,percentile_50,percentile_75)
 
-output = np.where((array > percentile_0), 1, output)
-output = np.where((array > percentile_25), 2, output)
-output = np.where((array > percentile_50), 3, output)
-output = np.where((array > percentile_75), 4, output)
+#4 classes: 25-100; 100-200; 200-300; 300-365, 1-24
+output = np.where((array > 25) & (array <=100), 1, output)
+output = np.where((array > 100) & (array <=200), 2, output)
+output = np.where((array > 200) & (array <=300), 3, output)
+output = np.where(((array > 300) & (array <=365)) | ((array >= 1) & (array <=25)), 4, output)
 
-outname = r'C:\EFT\EFAs\CR\reclasses\Landsat7_mean_2001_2017_4classes.tif'
+outname = r'C:\EFT\EFAs\CR\reclasses\Landsat7_MMax_2001_2017_4classes.tif'
 gdal_array.SaveArray(output, outname, "gtiff", prototype=dataset)
 
 
@@ -104,8 +97,9 @@ gdal_array.SaveArray(output, outname, "gtiff", prototype=dataset)
 
 # plt.subplot(1, 2, 2)  # 1 line, 2 rows, index nr 1 (first position in the subplot)
 # im = pre_lidar_chm_class_ma.plot.imshow(cmap=cmap,norm=norm)
-# plt.title('Landsat7_SD_4classes')
+# plt.title('MODIS_MMax_4classes')
 # plt.axis('off')
 
+
 # #plt.show()
-# plt.savefig(r"C:\EFT\Landsat7_SD_spatial_patterns_22_44.png")
+# plt.savefig(r"C:\EFT\MODIS_MMax_spatial_patterns_2_4.png")
