@@ -11,8 +11,11 @@ from pathlib import Path
 #directory = "C:/EFT/EFD/CR"
 #output = "C:/EFT/EFD/CR/nodata/" 
 
-directory = "C:/EFT/EFD/NP"
-output = "C:/EFT/EFD/NP/nodata/"
+# directory = "C:/EFT/EFD/NP"
+# output = "C:/EFT/EFD/NP/nodata/"
+
+directory = "C:/EFT/EFD/NP/MODIS"
+output = "C:/EFT/EFD/NP/MODIS/nodata/"
 
 translateoptions = gdal.TranslateOptions(gdal.ParseCommandLine("-ot Float32 -a_nodata 0 COMPRESS=LZW"))
 
