@@ -37,6 +37,47 @@ cdict = {'red': ((0.0, 0.0, 0.0),
                  (1.0, 0.0, 0.0))}
 
 my_cmap = matplotlib.colors.LinearSegmentedColormap('my_colormap',cdict,256)
+#https://stackoverflow.com/questions/3279560/reverse-colormap-in-matplotlib
+import matplotlib.pyplot as plt
+import matplotlib as mpl
+def reverse_colourmap(cmap, name = 'my_cmap_r'):
+    """
+    In: 
+    cmap, name 
+    Out:
+    my_cmap_r
+
+    Explanation:
+    t[0] goes from 0 to 1
+    row i:   x  y0  y1 -> t[0] t[1] t[2]
+                   /
+                  /
+    row i+1: x  y0  y1 -> t[n] t[1] t[2]
+
+    so the inverse should do the same:
+    row i+1: x  y1  y0 -> 1-t[0] t[2] t[1]
+                   /
+                  /
+    row i:   x  y1  y0 -> 1-t[n] t[2] t[1]
+    """        
+    reverse = []
+    k = []   
+
+    for key in cmap._segmentdata:    
+        k.append(key)
+        channel = cmap._segmentdata[key]
+        data = []
+
+        for t in channel:                    
+            data.append((1-t[0],t[2],t[1]))            
+        reverse.append(sorted(data))    
+
+    LinearL = dict(zip(k,reverse))
+    my_cmap_r = mpl.colors.LinearSegmentedColormap(name, LinearL) 
+    return my_cmap_r
+
+
+my_cmap_r = reverse_colourmap(my_cmap)
 
 # Prettier plotting with seaborn
 import seaborn as sns
@@ -60,7 +101,7 @@ print('CHM max value:', np.nanmax(pre_lidar_chm_class_ma))
 plt.subplots(figsize=(4,4))
 
 plt.subplot(1, 1, 1)  # 1 line, 2 rows, index nr 1 (first position in the subplot)
-im = pre_lidar_chm_class_ma.plot.imshow(vmin=1500, vmax=4500,cmap=my_cmap)
+im = pre_lidar_chm_class_ma.plot.imshow(vmin=1500, vmax=4500,cmap=my_cmap_r)
 #im = pre_lidar_chm.plot.imshow()
 #plt.colorbar(im,ticks=class_bins)
 plt.title('total preciptation')
